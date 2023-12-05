@@ -30,17 +30,15 @@ export class AuthGuard implements CanActivate {
 
     return true;
   }
-
-  async validate(payload: any) {
-    const user = {
-      id:payload.sub,
-      role:payload.role
-    };
-    return user;
-  }
-
   private extractTokenFromHeader(request: Request): string | undefined {
     const [type, token] = request.headers.authorization?.split(" ") ?? [];
     return type === "Bearer" ? token : undefined;
+  }
+  async validate(payload: any) {
+    const user = {
+      id: payload.sub,
+      role: payload.role,
+    };
+    return user;
   }
 }
